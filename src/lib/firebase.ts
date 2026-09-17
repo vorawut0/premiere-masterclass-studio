@@ -160,7 +160,8 @@ export async function signInWithGoogle(): Promise<GoogleAccountInfo> {
       throw new Error('เบราว์เซอร์บล็อกหน้าต่างป๊อปอัป กรุณาอนุญาตป๊อปอัปหรือเปิดใช้งานในแท็บใหม่');
     }
     if (error.code === 'auth/unauthorized-domain') {
-      throw new Error('โดเมนนี้ยังไม่ได้รับอนุญาตใน Firebase Console (กรุณาเพิ่ม Authorized Domain)');
+      const currentHost = typeof window !== 'undefined' ? window.location.hostname : '';
+      throw new Error(`UNAUTHORIZED_DOMAIN:${currentHost}`);
     }
     if (error.code === 'auth/network-request-failed') {
       throw new Error('ไม่สามารถเชื่อมต่อเครือข่ายได้ กรุณาตรวจสอบการเชื่อมต่ออินเทอร์เน็ต');

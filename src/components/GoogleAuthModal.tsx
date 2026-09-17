@@ -16,7 +16,10 @@ import {
   CheckCircle2, 
   AlertTriangle, 
   ArrowRight,
-  Inbox
+  Inbox,
+  Copy,
+  ExternalLink,
+  Sparkles
 } from 'lucide-react';
 import { GoogleAccountInfo } from '../types';
 import { 
@@ -64,6 +67,7 @@ export const GoogleAuthModal: React.FC<GoogleAuthModalProps> = ({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
+  const [copiedDomain, setCopiedDomain] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
@@ -349,6 +353,16 @@ export const GoogleAuthModal: React.FC<GoogleAuthModalProps> = ({
               </p>
             </div>
 
+            {/* Vercel Host Friendly Notice */}
+            {typeof window !== 'undefined' && (window.location.hostname.endsWith('.vercel.app') || window.location.hostname.includes('vercel')) && (
+              <div className="p-3 rounded-xl bg-purple-500/10 border border-purple-500/30 text-xs text-purple-200 flex items-start gap-2.5 animate-in fade-in">
+                <Sparkles className="w-4 h-4 text-purple-400 shrink-0 mt-0.5" />
+                <div className="leading-relaxed">
+                  <span className="font-semibold text-white">พร้อมใช้งานบน Vercel:</span> แนะนำให้สมัครสมาชิกหรือเข้าสู่ระบบด้วย <strong className="text-purple-300">อีเมลและรหัสผ่าน</strong> ด้านล่างเพื่อเริ่มเรียนได้ทันทีครับ
+                </div>
+              </div>
+            )}
+
             {/* Standard Mode Switcher (Sign In vs Sign Up Tabs) */}
             {authMode !== 'forgot' && (
               <div className="flex p-1 rounded-xl bg-white/5 border border-white/10">
@@ -437,12 +451,95 @@ export const GoogleAuthModal: React.FC<GoogleAuthModalProps> = ({
             )}
 
             {/* Error Notification Alert */}
-            {error && (
-              <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-300 text-xs flex items-start gap-2 animate-in fade-in">
-                <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5 text-red-400" />
-                <span className="leading-relaxed">{error}</span>
-              </div>
-            )}
+            {error && (() => {
+              const isUnauthorizedDomain = error.startsWith('UNAUTHORIZED_DOMAIN:') || error.includes('Authorized Domain');
+              const detectedDomain = isUnauthorizedDomain
+                ? error.replace('UNAUTHORIZED_DOMAIN:', '').trim() || (typeof window !== 'undefined' ? window.location.hostname : '')
+                : '';
+              const firebaseConsoleUrl = 'https://console.firebase.google.com/project/vaulted-xanthometer-1q6d2/authentication/settings';
+
+              if (isUnauthorizedDomain) {
+                return (
+                  <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-200 text-xs space-y-3 animate-in fade-in">
+                    <div className="flex items-start gap-2.5">
+                      <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5 text-amber-400" />
+                      <div>
+                        <div className="font-bold text-amber-300">Google Login ไม่รองรับบนโดเมนภายนอก Vercel</div>
+                        <p className="text-[11px] text-[#CBD5E1] mt-0.5 leading-relaxed">
+                          Google Cloud จำกัดการล็อกอินด้วย Google ไว้เฉพาะโดเมนทางการ แต่คุณสามารถเรียนและเก็บสถิติบน Vercel ได้ทันทีผ่าน 2 ช่องทางนี้ครับ:
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setAuthMode('signup');
+                          setError(null);
+                        }}
+                        className="py-2.5 px-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-semibold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-sm"
+                      >
+                        <UserPlus className="w-3.5 h-3.5 shrink-0" />
+                        <span>สมัครสมาชิกด้วยอีเมล (ใช้ได้เลย)</span>
+                      </button>
+
+                      <a
+                        href="https://ais-pre-eu3izgraaaimc2piwkbciz-644701441954.asia-east1.run.app"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="py-2.5 px-3 rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 text-white font-semibold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer text-center"
+                      >
+                        <span>เปิดเว็บหลัก (ล็อกอิน Google ได้)</span>
+                        <ExternalLink className="w-3.5 h-3.5 shrink-0" />
+                      </a>
+                    </div>
+                  </div>
+                );
+              }
+
+              const isWrongCredentials = error.includes('ไม่ถูกต้อง') || error.includes('invalid-credential') || error.includes('wrong-password') || error.includes('user-not-found');
+
+              return (
+                <div className="p-3.5 rounded-2xl bg-red-500/10 border border-red-500/30 text-red-300 text-xs space-y-2.5 animate-in fade-in">
+                  <div className="flex items-start gap-2">
+                    <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5 text-red-400" />
+                    <span className="leading-relaxed font-medium">{error}</span>
+                  </div>
+
+                  {isWrongCredentials && (
+                    <div className="pt-2 border-t border-red-500/20 space-y-2 text-[11px]">
+                      <p className="text-[#CBD5E1]">
+                        💡 <strong>คำแนะนำ:</strong> หากบัญชีนี้เคยเข้าสู่ระบบด้วย Google หรือยังไม่ได้ตั้งรหัสผ่าน สามารถเลือกกดปุ่มด้านล่างได้ทันทีครับ:
+                      </p>
+                      <div className="flex flex-wrap gap-2 pt-0.5">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setAuthMode('forgot');
+                            setError(null);
+                          }}
+                          className="px-3 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-500 text-white font-semibold text-xs flex items-center gap-1.5 transition-colors cursor-pointer"
+                        >
+                          <KeyRound className="w-3.5 h-3.5" />
+                          <span>ส่งลิงก์ตั้งรหัสผ่านใหม่ ({email.trim() || 'อีเมลนี้'})</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setAuthMode('signup');
+                            setError(null);
+                          }}
+                          className="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/15 text-[#EDEDF4] font-medium text-xs transition-colors cursor-pointer"
+                        >
+                          สลับไปสมัครสมาชิก
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })()}
 
             {/* Success Notification Alert */}
             {successMsg && (
