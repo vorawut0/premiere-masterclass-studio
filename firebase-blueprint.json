@@ -1,0 +1,289 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile and course progress data associated with a Google Account",
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "description": "Google user email address"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Google display name"
+        },
+        "photoURL": {
+          "type": "string",
+          "description": "Google profile photo URL"
+        },
+        "profileName": {
+          "type": "string",
+          "description": "In-app editor nickname"
+        },
+        "avatarIcon": {
+          "type": "string",
+          "description": "Avatar icon or emoji"
+        },
+        "points": {
+          "type": "number",
+          "description": "Total XP points earned"
+        },
+        "completedLessons": {
+          "type": "array",
+          "description": "List of completed lesson IDs"
+        },
+        "badges": {
+          "type": "array",
+          "description": "Unlocked badge IDs"
+        },
+        "dailyStreak": {
+          "type": "number",
+          "description": "Current active daily streak"
+        },
+        "maxStreak": {
+          "type": "number",
+          "description": "Highest daily streak achieved"
+        },
+        "studyMinutes": {
+          "type": "number",
+          "description": "Total study time in minutes"
+        },
+        "quizBest": {
+          "type": "number",
+          "description": "Best quiz score"
+        },
+        "quizHistory": {
+          "type": "array",
+          "description": "Historical quiz scores"
+        },
+        "bookmarks": {
+          "type": "array",
+          "description": "Bookmarked lesson IDs"
+        },
+        "workshopSubmissions": {
+          "type": "object",
+          "description": "Submitted workshop assignments, grades and feedback"
+        },
+        "bio": {
+          "type": "string",
+          "description": "User self description or editor bio"
+        },
+        "skillLevel": {
+          "type": "string",
+          "description": "Premiere editing proficiency level"
+        },
+        "learningGoal": {
+          "type": "string",
+          "description": "User primary learning objective"
+        },
+        "portfolioUrl": {
+          "type": "string",
+          "description": "Personal showreel or portfolio link"
+        },
+        "customAvatarUrl": {
+          "type": "string",
+          "description": "Custom uploaded avatar image data or URL"
+        },
+        "avatarType": {
+          "type": "string",
+          "description": "Selected avatar display type (emoji, custom, google)"
+        },
+        "lastActiveDate": {
+          "type": "string",
+          "description": "Last active ISO date string"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp of last synchronization"
+        }
+      },
+      "required": ["email", "displayName"]
+    },
+    "Inquiry": {
+      "title": "Inquiry",
+      "description": "Student contact message or inquiry sent to the database for administrators and instructors",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Sender's full name or student nickname",
+          "maxLength": 100
+        },
+        "email": {
+          "type": "string",
+          "description": "Contact email address",
+          "maxLength": 150
+        },
+        "message": {
+          "type": "string",
+          "description": "Inquiry message or question detail",
+          "maxLength": 3000
+        },
+        "topic": {
+          "type": "string",
+          "description": "Inquiry category or topic",
+          "maxLength": 100
+        },
+        "senderUid": {
+          "type": "string",
+          "description": "Firebase Auth UID of the sender if signed in, or guest",
+          "maxLength": 128
+        },
+        "status": {
+          "type": "string",
+          "description": "Processing status (pending, in_review, resolved)",
+          "enum": ["pending", "in_review", "resolved"]
+        },
+        "adminNotes": {
+          "type": "string",
+          "description": "Instructor or controller reply/notes",
+          "maxLength": 2000
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "ISO timestamp of when the inquiry was submitted"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "ISO timestamp of last status update"
+        }
+      },
+      "required": ["name", "email", "message", "status", "createdAt"]
+    },
+    "Certificate": {
+      "title": "Certificate",
+      "description": "Publicly verifiable graduation certificate issued to students",
+      "type": "object",
+      "properties": {
+        "certId": {
+          "type": "string",
+          "description": "Unique certificate verification identifier"
+        },
+        "studentName": {
+          "type": "string",
+          "description": "Student full name on the certificate"
+        },
+        "courseTitle": {
+          "type": "string",
+          "description": "Course title"
+        },
+        "issueDate": {
+          "type": "string",
+          "description": "Date of issue"
+        },
+        "verificationUrl": {
+          "type": "string",
+          "description": "Verification link"
+        }
+      },
+      "required": ["certId", "studentName"]
+    },
+    "WorkshopSubmission": {
+      "title": "WorkshopSubmission",
+      "description": "Student project submission for workshop practice",
+      "type": "object",
+      "properties": {
+        "submissionId": {
+          "type": "string",
+          "description": "Unique submission ID"
+        },
+        "projectId": {
+          "type": "number",
+          "description": "Workshop project identifier"
+        },
+        "projectTitle": {
+          "type": "string",
+          "description": "Workshop project title"
+        },
+        "senderUid": {
+          "type": "string",
+          "description": "Student user ID"
+        },
+        "senderEmail": {
+          "type": "string",
+          "description": "Student email"
+        },
+        "senderName": {
+          "type": "string",
+          "description": "Student display name"
+        },
+        "submittedAt": {
+          "type": "string",
+          "description": "Submission ISO timestamp"
+        },
+        "score": {
+          "type": "number",
+          "description": "Instructor evaluation score"
+        }
+      },
+      "required": ["projectId"]
+    },
+    "Notification": {
+      "title": "Notification",
+      "description": "Real-time system notification for students, instructors and controllers",
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Notification title"
+        },
+        "message": {
+          "type": "string",
+          "description": "Notification message detail"
+        },
+        "type": {
+          "type": "string",
+          "description": "Type of notification (inquiry, workshop, system, badge, quiz)"
+        },
+        "targetUid": {
+          "type": "string",
+          "description": "Target recipient UID or 'admin' or 'all'"
+        },
+        "recipientEmail": {
+          "type": "string",
+          "description": "Optional recipient email address"
+        },
+        "read": {
+          "type": "boolean",
+          "description": "Read status for specific user target"
+        },
+        "readBy": {
+          "type": "array",
+          "description": "List of user UIDs who have marked this notification as read"
+        },
+        "link": {
+          "type": "string",
+          "description": "Anchor link or action identifier"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "ISO timestamp of creation"
+        }
+      },
+      "required": ["title", "message", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Private user profile and learning progress owned by the authenticated user"
+    },
+    "/inquiries/{inquiryId}": {
+      "schema": "Inquiry",
+      "description": "Collection of inquiries and questions sent to the database for controllers and instructors"
+    },
+    "/certificates/{certId}": {
+      "schema": "Certificate",
+      "description": "Publicly verifiable graduation certificate records"
+    },
+    "/workshop_submissions/{submissionId}": {
+      "schema": "WorkshopSubmission",
+      "description": "Collection of student workshop submissions for evaluation"
+    },
+    "/notifications/{notificationId}": {
+      "schema": "Notification",
+      "description": "Real-time notifications for system events, reviews, and inquiries"
+    }
+  }
+}

@@ -1,0 +1,92 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.email.matches('(?i)^vorawutphetrai17@gmail\\.com$') ||
+        request.auth.token.email == 'vorawutphetrai17@gmail.com' ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+      );
+    }
+
+    // User profile and learning progress
+    match /users/{userId} {
+      allow read, write: if isSignedIn() && request.auth.uid == userId;
+    }
+
+    // Inquiries sent to database for controllers and admins
+    match /inquiries/{inquiryId} {
+      // Any user can create an inquiry with validated payload constraints
+      allow create: if request.resource.data.name is string &&
+                       request.resource.data.name.size() > 0 &&
+                       request.resource.data.name.size() <= 100 &&
+                       request.resource.data.email is string &&
+                       request.resource.data.email.size() > 0 &&
+                       request.resource.data.email.size() <= 150 &&
+                       request.resource.data.message is string &&
+                       request.resource.data.message.size() > 0 &&
+                       request.resource.data.message.size() <= 3000 &&
+                       request.resource.data.status in ['pending', 'in_review', 'resolved'];
+
+      // Controller/admin can read all; signed-in users can read their own submissions
+      allow read: if isAdmin() || (isSignedIn() && resource.data.senderUid == request.auth.uid);
+
+      // Only controller/admin can update status, add notes, or delete
+      allow update, delete: if isAdmin();
+    }
+
+    // Admins collection
+    match /admins/{adminId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+
+    // Publicly verifiable certificates
+    match /certificates/{certId} {
+      // Anyone can read/verify an authentic certificate by ID
+      allow read: if true;
+      // Allow creation of certificate records with valid structure
+      allow create, update: if request.resource.data.certId is string &&
+                               request.resource.data.studentName is string &&
+                               request.resource.data.studentName.size() > 0;
+      allow delete: if isAdmin();
+    }
+
+    // Workshop project submissions
+    match /workshop_submissions/{submissionId} {
+      allow create: if request.resource.data.projectId is number;
+      // Admin/controller can read all; student can read their own
+      allow read: if isAdmin() || (isSignedIn() && resource.data.senderUid == request.auth.uid);
+      allow update, delete: if isAdmin();
+    }
+
+    // Real-time notifications collection
+    match /notifications/{notifId} {
+      // Allow read for everyone for broadcast notifications, or if user is admin, or if targeted to the user
+      allow read: if resource.data.targetUid == null || 
+                     resource.data.targetUid == 'all' || 
+                     (isSignedIn() && resource.data.targetUid == request.auth.uid) || 
+                     isAdmin();
+      // Allow creation of notifications with valid structure
+      allow create: if request.resource.data.title is string &&
+                       request.resource.data.message is string &&
+                       request.resource.data.createdAt is string;
+      // Allow update: user can mark their own as read, or admin can update, or anyone can update readBy
+      allow update: if isAdmin() || 
+                       (isSignedIn() && resource.data.targetUid == request.auth.uid) ||
+                       (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['read', 'readBy']));
+      // Delete reserved for admin
+      allow delete: if isAdmin();
+    }
+
+    // Default deny all other collections
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

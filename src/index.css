@@ -1,0 +1,572 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg: #090B10;
+    --bg-2: #0F121C;
+    --panel: #131724;
+    --panel-border: #232A3E;
+    --panel-strong: #191E30;
+    --purple: #6366F1;
+    --purple-2: #818CF8;
+    --purple-glow: rgba(99, 102, 241, 0.25);
+    --blue: #3B82F6;
+    --cyan: #38BDF8;
+    --text: #F8FAFC;
+    --text-dim: #94A3B8;
+    --text-dimmer: #64748B;
+    --line: #202638;
+    --success: #10B981;
+    --warn: #F59E0B;
+    --danger: #EF4444;
+    --radius: 12px;
+  }
+
+  [data-theme="light"] {
+    --bg: #FFFFFF;
+    --bg-2: #F8FAFC;
+    --panel: #FFFFFF;
+    --panel-border: #E2E8F0;
+    --panel-strong: #FFFFFF;
+    --text: #090D16;
+    --text-dim: #334155;
+    --text-dimmer: #64748B;
+    --line: #E2E8F0;
+    --purple: #4F46E5;
+    --purple-2: #6366F1;
+    --purple-glow: rgba(99, 102, 241, 0.15);
+    --blue: #2563EB;
+    --cyan: #0284C7;
+  }
+
+  body {
+    font-family: 'Prompt', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    line-height: 1.6;
+    letter-spacing: -0.011em;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: 'Sora', 'Prompt', sans-serif;
+    letter-spacing: -0.025em;
+  }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+  }
+}
+
+/* Authentic Pro Studio Panels with Luminous Edges */
+.glass-panel {
+  background: rgba(19, 23, 36, 0.92);
+  border: 1px solid rgba(129, 140, 248, 0.14);
+  backdrop-filter: blur(14px);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 24px -2px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.glass-panel-strong {
+  background: rgba(25, 30, 48, 0.95);
+  border: 1px solid rgba(129, 140, 248, 0.22);
+  backdrop-filter: blur(18px);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 32px -4px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.09);
+}
+
+/* Tactile Gradient Buttons */
+.gradient-btn {
+  background: linear-gradient(135deg, #6366F1 0%, #7C3AED 50%, #4F46E5 100%);
+  color: #FFFFFF;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), 0 4px 18px rgba(99, 102, 241, 0.38);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gradient-btn:hover {
+  background: linear-gradient(135deg, #7074F4 0%, #8B5CF6 50%, #6366F1 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.38), 0 6px 26px rgba(124, 58, 237, 0.52);
+  transform: translateY(-2px);
+}
+
+.gradient-btn:active {
+  transform: translateY(0);
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+/* High Contrast & Aesthetic Typography */
+.text-gradient {
+  background: linear-gradient(135deg, #FFFFFF 10%, #E0E7FF 40%, #A5B4FC 70%, #67E8F9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+}
+
+.text-gradient-purple {
+  background: linear-gradient(135deg, #F3E8FF 0%, #C084FC 45%, #818CF8 90%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-gold {
+  background: linear-gradient(135deg, #FEF08A 0%, #FBBF24 50%, #F59E0B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-cyan {
+  background: linear-gradient(135deg, #E0F2FE 0%, #38BDF8 50%, #06B6D4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Interactive Cards with smooth lift and glow */
+.card-interactive {
+  transition: border-color 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+}
+
+.card-interactive:hover {
+  transform: translateY(-3px);
+  border-color: rgba(129, 140, 248, 0.45);
+  box-shadow: 0 12px 30px -6px rgba(0, 0, 0, 0.55), 0 0 25px rgba(99, 102, 241, 0.2);
+}
+
+/* Filmstrip & Timeline decorative elements */
+.filmstrip-border {
+  background: repeating-linear-gradient(180deg, #0A0C10 0 10px, #161922 10px 22px);
+}
+
+@keyframes recPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.animate-rec {
+  animation: recPulse 1.2s ease-in-out infinite;
+}
+
+@keyframes playheadSlide {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+
+.animate-playhead {
+  animation: playheadSlide 1.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Studio Precision Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0D0F14;
+}
+::-webkit-scrollbar-thumb {
+  background: #2D3345;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #424B63;
+}
+
+/* Universal Cross-Platform Device Auto-Fitting */
+html, body, #root {
+  width: 100%;
+  min-height: 100%;
+  min-height: 100dvh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@supports (padding: max(0px)) {
+  body {
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    padding-left: env(safe-area-inset-left, 0px);
+    padding-right: env(safe-area-inset-right, 0px);
+  }
+}
+
+/* Fluid edge-to-edge container scaling automatically tailored to Mobile, Tablet, Laptop, and Ultrawide */
+.fullscreen-container,
+.studio-container {
+  width: 100%;
+  max-width: 1920px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(1rem, 3.5vw, 4rem);
+  padding-right: clamp(1rem, 3.5vw, 4rem);
+}
+
+/* Adaptive platform typography & touch targets */
+@media (max-width: 640px) {
+  button, a {
+    min-height: 38px;
+  }
+}
+
+/* ==========================================================================
+   BRIGHT WHITE LIGHT THEME (CRISP HIGH-CONTRAST BLACK TEXT)
+   ========================================================================== */
+
+[data-theme="light"],
+body[data-theme="light"],
+.light-mode {
+  color-scheme: light;
+  background-color: #FFFFFF !important;
+  color: #090D16 !important;
+}
+
+/* Headings in Light Mode: Solid, bold, high-contrast black */
+[data-theme="light"] h1,
+[data-theme="light"] h2,
+[data-theme="light"] h3,
+[data-theme="light"] h4,
+[data-theme="light"] h5,
+[data-theme="light"] h6,
+[data-theme="light"] .font-display,
+.light-mode h1,
+.light-mode h2,
+.light-mode h3,
+.light-mode h4,
+.light-mode h5,
+.light-mode h6,
+.light-mode .font-display {
+  color: #090D16 !important;
+}
+
+/* Paragraphs & body copy in Light Mode: Dark slate (#1E293B / #334155) */
+[data-theme="light"] p,
+.light-mode p {
+  color: #1E293B;
+}
+
+/* Override .text-white and ultra-light colors to Deep Black (#090D16) in light mode,
+   EXCEPT for action buttons with solid dark/colored backgrounds */
+[data-theme="light"] :is(
+  .text-white,
+  .text-slate-50,
+  .text-slate-100,
+  .text-slate-200,
+  .text-zinc-50,
+  .text-zinc-100,
+  .text-zinc-200,
+  .text-gray-50,
+  .text-gray-100,
+  .text-gray-200,
+  .text-neutral-50,
+  .text-neutral-100,
+  .text-neutral-200
+):not(.gradient-btn):not(.gradient-btn *):not([class*="bg-indigo-6"]):not([class*="bg-indigo-7"]):not([class*="bg-indigo-8"]):not([class*="bg-purple-6"]):not([class*="bg-purple-7"]):not([class*="bg-purple-8"]):not([class*="bg-violet-6"]):not([class*="bg-violet-7"]):not([class*="bg-blue-6"]):not([class*="bg-blue-7"]):not([class*="bg-emerald-6"]):not([class*="bg-emerald-7"]):not([class*="bg-green-6"]):not([class*="bg-red-5"]):not([class*="bg-red-6"]):not([class*="bg-rose-5"]):not([class*="bg-rose-6"]):not([class*="bg-amber-5"]):not([class*="bg-amber-6"]):not(.keep-white):not(.keep-white *),
+.light-mode :is(
+  .text-white,
+  .text-slate-50,
+  .text-slate-100,
+  .text-slate-200,
+  .text-zinc-50,
+  .text-zinc-100,
+  .text-zinc-200,
+  .text-gray-50,
+  .text-gray-100,
+  .text-gray-200
+):not(.gradient-btn):not(.gradient-btn *):not([class*="bg-indigo-6"]):not([class*="bg-indigo-7"]):not([class*="bg-purple-6"]):not([class*="bg-purple-7"]):not([class*="bg-blue-6"]):not([class*="bg-emerald-6"]):not([class*="bg-red-6"]):not([class*="bg-rose-6"]):not(.keep-white):not(.keep-white *) {
+  color: #090D16 !important;
+}
+
+/* Secondary muted text in Light Mode: Dark Charcoal / Slate-700 (#334155) for high legibility */
+[data-theme="light"] :is(
+  .text-slate-300,
+  .text-slate-400,
+  .text-zinc-300,
+  .text-zinc-400,
+  .text-gray-300,
+  .text-gray-400,
+  .text-neutral-300,
+  .text-neutral-400
+):not(.gradient-btn *):not([class*="bg-indigo-6"] *):not([class*="bg-purple-6"] *),
+.light-mode :is(
+  .text-slate-300,
+  .text-slate-400,
+  .text-zinc-300,
+  .text-zinc-400,
+  .text-gray-300,
+  .text-gray-400
+):not(.gradient-btn *):not([class*="bg-indigo-6"] *):not([class*="bg-purple-6"] *) {
+  color: #334155 !important;
+}
+
+/* Explicit Hex Color overrides in light mode */
+[data-theme="light"] [class*="text-[#EDEDF4]"],
+[data-theme="light"] [class*="text-[#F8FAFC]"],
+[data-theme="light"] [class*="text-[#F1F5F9]"],
+.light-mode [class*="text-[#EDEDF4]"],
+.light-mode [class*="text-[#F8FAFC]"],
+.light-mode [class*="text-[#F1F5F9]"] {
+  color: #090D16 !important;
+}
+
+[data-theme="light"] [class*="text-[#94A3B8]"],
+[data-theme="light"] [class*="text-[#9A9AB0]"],
+[data-theme="light"] [class*="text-[#CBD5E1]"],
+[data-theme="light"] [class*="text-[#6B6B85]"],
+.light-mode [class*="text-[#94A3B8]"],
+.light-mode [class*="text-[#9A9AB0]"],
+.light-mode [class*="text-[#CBD5E1]"],
+.light-mode [class*="text-[#6B6B85]"] {
+  color: #334155 !important;
+}
+
+/* Pastel accents in Light Mode: Deep, saturated tones */
+[data-theme="light"] :is(
+  .text-purple-200,
+  .text-purple-300,
+  .text-purple-400,
+  .text-indigo-200,
+  .text-indigo-300,
+  .text-indigo-400,
+  .text-violet-200,
+  .text-violet-300,
+  .text-violet-400
+),
+[data-theme="light"] [class*="text-[#C7D2FE]"],
+[data-theme="light"] [class*="text-[#B794F6]"],
+[data-theme="light"] [class*="text-[#A5B4FC]"],
+[data-theme="light"] [class*="text-[#A78BFA]"],
+.light-mode :is(.text-purple-200, .text-indigo-200, .text-purple-300, .text-indigo-300, .text-purple-400, .text-indigo-400) {
+  color: #4338CA !important;
+}
+
+[data-theme="light"] :is(
+  .text-cyan-200,
+  .text-cyan-300,
+  .text-cyan-400,
+  .text-blue-200,
+  .text-blue-300,
+  .text-blue-400,
+  .text-sky-200,
+  .text-sky-300,
+  .text-sky-400
+),
+[data-theme="light"] [class*="text-[#70B5F9]"],
+[data-theme="light"] [class*="text-[#38BDF8]"],
+.light-mode :is(.text-cyan-200, .text-blue-200, .text-cyan-300, .text-blue-300, .text-cyan-400, .text-blue-400) {
+  color: #0284C7 !important;
+}
+
+[data-theme="light"] :is(.text-amber-200, .text-amber-300, .text-amber-400, .text-yellow-200, .text-yellow-300, .text-yellow-400),
+.light-mode :is(.text-amber-200, .text-amber-300, .text-amber-400) {
+  color: #B45309 !important;
+}
+
+[data-theme="light"] :is(.text-emerald-200, .text-emerald-300, .text-emerald-400, .text-green-200, .text-green-300, .text-green-400),
+.light-mode :is(.text-emerald-200, .text-emerald-300, .text-emerald-400) {
+  color: #047857 !important;
+}
+
+[data-theme="light"] :is(.text-rose-400, .text-red-400, .text-pink-400),
+.light-mode :is(.text-rose-400, .text-red-400, .text-pink-400) {
+  color: #DC2626 !important;
+}
+
+/* Text Gradients in Light Mode: Deep high-contrast gradients */
+[data-theme="light"] .text-gradient,
+.light-mode .text-gradient {
+  background: linear-gradient(135deg, #090D16 0%, #312E81 35%, #4F46E5 70%, #0284C7 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+[data-theme="light"] .text-gradient-purple,
+.light-mode .text-gradient-purple {
+  background: linear-gradient(135deg, #3B0764 0%, #6B21A8 50%, #4338CA 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+[data-theme="light"] .text-gradient-gold,
+.light-mode .text-gradient-gold {
+  background: linear-gradient(135deg, #78350F 0%, #B45309 50%, #D97706 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+[data-theme="light"] .text-gradient-cyan,
+.light-mode .text-gradient-cyan {
+  background: linear-gradient(135deg, #0C4A6E 0%, #0284C7 50%, #0369A1 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+/* Studio Panels & Cards in Light Mode */
+[data-theme="light"] .glass-panel,
+.light-mode .glass-panel {
+  background: #FFFFFF !important;
+  border: 1px solid #E2E8F0 !important;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.03) !important;
+}
+
+[data-theme="light"] .glass-panel-strong,
+.light-mode .glass-panel-strong {
+  background: #FFFFFF !important;
+  border: 1px solid #CBD5E1 !important;
+  box-shadow: 0 10px 30px -4px rgba(0, 0, 0, 0.07), 0 2px 6px rgba(0, 0, 0, 0.04) !important;
+}
+
+[data-theme="light"] .card-interactive,
+.light-mode .card-interactive {
+  background-color: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+}
+
+[data-theme="light"] .card-interactive:hover,
+.light-mode .card-interactive:hover {
+  border-color: #6366F1 !important;
+  box-shadow: 0 12px 28px -4px rgba(0, 0, 0, 0.08), 0 0 16px rgba(99, 102, 241, 0.12) !important;
+}
+
+/* Dark Container Backgrounds become Bright White or Light Gray in Light Mode */
+[data-theme="light"] [class*="bg-[#090B10]"]:not(canvas):not(.aspect-\[16\/10\]):not(.aspect-\[16\/9\]):not(.keep-dark),
+[data-theme="light"] [class*="bg-[#0D101D]"],
+[data-theme="light"] [class*="bg-[#0E111D]"],
+[data-theme="light"] [class*="bg-[#0d0d16]"]:not(.print\\:bg-white),
+[data-theme="light"] [class*="bg-[#0F0F16]"],
+[data-theme="light"] [class*="bg-[#0F121C]"],
+[data-theme="light"] [class*="bg-[#121624]"],
+[data-theme="light"] [class*="bg-[#131724]"],
+[data-theme="light"] [class*="bg-[#191E30]"],
+[data-theme="light"] [class*="bg-[#0B0D14]"],
+[data-theme="light"] [class*="bg-[#0D101A]"],
+[data-theme="light"] [class*="bg-[#121626]"],
+.light-mode [class*="bg-[#090B10]"]:not(canvas):not(.aspect-\[16\/10\]):not(.aspect-\[16\/9\]):not(.keep-dark),
+.light-mode [class*="bg-[#0D101D]"],
+.light-mode [class*="bg-[#0E111D]"],
+.light-mode [class*="bg-[#0F0F16]"],
+.light-mode [class*="bg-[#0F121C]"],
+.light-mode [class*="bg-[#121624]"],
+.light-mode [class*="bg-[#131724]"],
+.light-mode [class*="bg-[#191E30]"] {
+  background-color: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+}
+
+/* Translucent dark card fills to clean subtle light gray in Light Mode */
+[data-theme="light"] .bg-white\/5,
+[data-theme="light"] .bg-white\/10,
+.light-mode .bg-white\/5,
+.light-mode .bg-white\/10 {
+  background-color: #F1F5F9 !important;
+  border-color: #E2E8F0 !important;
+}
+
+[data-theme="light"] .bg-white\/15,
+[data-theme="light"] .bg-white\/20,
+.light-mode .bg-white\/15,
+.light-mode .bg-white\/20 {
+  background-color: #E2E8F0 !important;
+}
+
+/* Borders in Light Mode */
+[data-theme="light"] :is(
+  .border-white\/5,
+  .border-white\/10,
+  .border-white\/15,
+  .border-white\/20,
+  .border-slate-800,
+  .border-slate-700
+),
+.light-mode :is(
+  .border-white\/5,
+  .border-white\/10,
+  .border-white\/15,
+  .border-white\/20,
+  .border-slate-800,
+  .border-slate-700
+) {
+  border-color: #E2E8F0 !important;
+}
+
+/* Form Inputs, Textareas, Selects in Light Mode */
+[data-theme="light"] input:not([type="checkbox"]):not([type="radio"]),
+[data-theme="light"] textarea,
+[data-theme="light"] select,
+.light-mode input:not([type="checkbox"]):not([type="radio"]),
+.light-mode textarea,
+.light-mode select {
+  background-color: #FFFFFF !important;
+  color: #090D16 !important;
+  border-color: #CBD5E1 !important;
+}
+
+[data-theme="light"] input::placeholder,
+[data-theme="light"] textarea::placeholder,
+.light-mode input::placeholder,
+.light-mode textarea::placeholder {
+  color: #64748B !important;
+}
+
+/* Light Mode Modal Backdrop */
+[data-theme="light"] .bg-black\/80,
+[data-theme="light"] .bg-black\/70,
+.light-mode .bg-black\/80,
+.light-mode .bg-black\/70 {
+  background-color: rgba(15, 23, 42, 0.55) !important;
+}
+
+/* Light mode scrollbar */
+[data-theme="light"] ::-webkit-scrollbar-track,
+.light-mode ::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+[data-theme="light"] ::-webkit-scrollbar-thumb,
+.light-mode ::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+}
+[data-theme="light"] ::-webkit-scrollbar-thumb:hover,
+.light-mode ::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* Light Mode Footer */
+[data-theme="light"] footer,
+.light-mode footer {
+  background-color: #F8FAFC !important;
+  border-top: 1px solid #E2E8F0 !important;
+  color: #334155 !important;
+}
+
+[data-theme="light"] footer :is(p, span, li),
+.light-mode footer :is(p, span, li) {
+  color: #334155 !important;
+}
+
+[data-theme="light"] footer h5,
+.light-mode footer h5 {
+  color: #090D16 !important;
+  font-weight: 700 !important;
+}
+
+[data-theme="light"] footer a,
+.light-mode footer a {
+  color: #475569 !important;
+}
+
+[data-theme="light"] footer a:hover,
+.light-mode footer a:hover {
+  color: #4F46E5 !important;
+}
+
+/* Translucent dark backdrops in Light Mode */
+[data-theme="light"] :is(.bg-black\/40, .bg-black\/50, .bg-black\/60, .bg-black\/30),
+.light-mode :is(.bg-black\/40, .bg-black\/50, .bg-black\/60, .bg-black\/30) {
+  background-color: #F1F5F9 !important;
+  border-color: #CBD5E1 !important;
+}
+
+

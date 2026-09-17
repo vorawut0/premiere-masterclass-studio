@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="prBgMask" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#00005B" />
+      <stop offset="100%" stop-color="#000042" />
+    </linearGradient>
+  </defs>
+
+  <rect width="512" height="512" fill="url(#prBgMask)" />
+
+  <g transform="translate(40, 40) scale(0.84)">
+    <path d="M 132,172 L 210,172 C 242,172 264,192 264,224 C 264,256 242,276 210,276 L 174,276 L 174,340 L 132,340 Z M 174,206 L 174,242 L 208,242 C 222,242 228,236 228,224 C 228,212 222,206 208,206 Z" fill="#9999FF" />
+    <path d="M 292,220 L 332,220 L 332,246 C 344,228 360,220 378,220 C 392,220 402,224 408,230 L 394,264 C 386,258 376,256 366,256 C 350,256 334,268 332,286 L 332,340 L 292,340 Z" fill="#9999FF" />
+  </g>
+</svg>
