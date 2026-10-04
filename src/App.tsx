@@ -243,7 +243,7 @@ export default function App() {
       if (user) {
         const googleInfo: GoogleAccountInfo = {
           uid: user.uid,
-          displayName: user.displayName || 'Google User',
+          displayName: user.displayName || 'User',
           email: user.email || '',
           photoURL: user.photoURL || undefined
         };

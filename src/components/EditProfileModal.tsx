@@ -155,7 +155,7 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({
                   ) : avatarType === 'google' && userState.googleAccount?.photoURL ? (
                     <img 
                       src={userState.googleAccount.photoURL} 
-                      alt="Google Avatar" 
+                      alt="Profile Avatar" 
                       className="w-full h-full object-cover" 
                       referrerPolicy="no-referrer"
                     />
@@ -211,7 +211,7 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({
                           : 'bg-white/5 text-[#94A3B8] border-white/10 hover:bg-white/10'
                       }`}
                     >
-                      🌐 ใช้รูป Google
+                      🌐 ใช้รูปโปรไฟล์บัญชี
                     </button>
                   )}
                 </div>

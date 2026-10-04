@@ -448,7 +448,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               ) : (
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-amber-400" />
-                  <span className="text-xs text-[#94A3B8]">ยังไม่ได้เชื่อมต่อ Google</span>
+                  <span className="text-xs text-[#94A3B8]">ยังไม่ได้เข้าสู่ระบบ</span>
                 </div>
               )}
 

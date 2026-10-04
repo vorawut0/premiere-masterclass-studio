@@ -137,7 +137,7 @@ export function formatGoogleUser(user: FirebaseUser): GoogleAccountInfo {
   return {
     uid: user.uid,
     email: user.email || '',
-    displayName: user.displayName || user.email?.split('@')[0] || 'Google User',
+    displayName: user.displayName || user.email?.split('@')[0] || 'User',
     photoURL: user.photoURL || undefined
   };
 }
@@ -166,7 +166,7 @@ export async function signInWithGoogle(): Promise<GoogleAccountInfo> {
     if (error.code === 'auth/network-request-failed') {
       throw new Error('ไม่สามารถเชื่อมต่อเครือข่ายได้ กรุณาตรวจสอบการเชื่อมต่ออินเทอร์เน็ต');
     }
-    throw new Error(error.message || 'เกิดข้อผิดพลาดในการลงชื่อเข้าใช้ผ่าน Google');
+    throw new Error(error.message || 'เกิดข้อผิดพลาดในการลงชื่อเข้าใช้');
   }
 }
 

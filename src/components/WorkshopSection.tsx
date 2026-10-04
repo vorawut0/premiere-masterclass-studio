@@ -650,11 +650,11 @@ Verification Hash: PMC-SUB-${sub.projectId}-${Math.floor(Date.now() / 1000).toSt
                     required
                     value={projectUrl}
                     onChange={(e) => setProjectUrl(e.target.value)}
-                    placeholder="https://youtube.com/watch?v=... หรือ ลิงก์ Google Drive"
+                    placeholder="https://youtube.com/watch?v=... หรือ ลิงก์คลิปวิดีโอผลงานของคุณ"
                     className="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/15 text-xs text-[#EDEDF4] placeholder-[#6B6B85] focus:outline-none focus:border-[#8B5CF6] transition-colors"
                   />
                   <p className="text-[11px] text-[#9A9AB0]">
-                    รองรับ YouTube (Public / Unlisted), Google Drive, TikTok หรือ Vimeo
+                    รองรับ YouTube (Public / Unlisted), Vimeo, TikTok หรือ Cloud Video ลิงก์ตรง
                   </p>
                 </div>
               )}

@@ -417,7 +417,7 @@ ${verifyUrl}
                 {userState.googleAccount && (
                   <div className="flex items-center justify-center gap-1.5 text-[10px] font-mono text-emerald-400 print:text-emerald-700 mt-1">
                     <Check className="w-3 h-3 stroke-[3]" />
-                    <span>Verified via Google: {userState.googleAccount.email}</span>
+                    <span>Verified Account: {userState.googleAccount.email}</span>
                   </div>
                 )}
               </div>
