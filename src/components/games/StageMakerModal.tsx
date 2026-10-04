@@ -44,7 +44,7 @@ export const StageMakerModal: React.FC<StageMakerModalProps> = ({
   const [desc, setDesc] = useState(
     existingStage?.desc || 'ด่านที่ออกแบบเอง ท้าทายความแม่นยำในการกระโดด สไลด์ และสับมีดเลเซอร์เคลียร์ไทม์ไลน์'
   );
-  const [biomeId, setBiomeId] = useState<'cyber_dark' | 'lumetri_neon' | 'retrowave_sunset' | 'render_core' | 'matrix_void'>(
+  const [biomeId, setBiomeId] = useState<'cyber_dark' | 'lumetri_neon' | 'retrowave_sunset' | 'render_core' | 'matrix_void' | 'kru_phutsa_lab'>(
     existingStage?.biomeId || 'cyber_dark'
   );
   const [distance, setDistance] = useState(existingStage?.distance || 800);

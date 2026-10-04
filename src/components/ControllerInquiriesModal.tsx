@@ -46,7 +46,7 @@ interface ControllerInquiriesModalProps {
   onClose: () => void;
   currentUserEmail?: string | null;
   onTriggerToast: (msg: string) => void;
-  onSignInWithGoogle?: () => void;
+  onOpenAuthModal?: () => void;
 }
 
 export const ControllerInquiriesModal: React.FC<ControllerInquiriesModalProps> = ({
@@ -54,7 +54,7 @@ export const ControllerInquiriesModal: React.FC<ControllerInquiriesModalProps> =
   onClose,
   currentUserEmail,
   onTriggerToast,
-  onSignInWithGoogle
+  onOpenAuthModal
 }) => {
   const [inquiries, setInquiries] = useState<ContactMessage[]>([]);
   const [workshopSubmissions, setWorkshopSubmissions] = useState<any[]>([]);
@@ -391,17 +391,17 @@ export const ControllerInquiriesModal: React.FC<ControllerInquiriesModalProps> =
               <div className="text-xs">
                 <p className="text-white font-semibold">ต้องลงชื่อเข้าใช้งานเพื่อเชื่อมต่อ Cloud Firestore</p>
                 <p className="text-[#9A9AB0]">
-                  กรุณาเข้าสู่ระบบด้วยบัญชี Google ({ADMIN_EMAIL}) เพื่อปลดล็อกศูนย์ควบคุมและรายการคำถาม/งานส่งตรวจ
+                  กรุณาเข้าสู่ระบบด้วยอีเมลแอดมิน ({ADMIN_EMAIL}) เพื่อปลดล็อกศูนย์ควบคุมและตรวจงาน
                 </p>
               </div>
             </div>
-            {onSignInWithGoogle && (
+            {onOpenAuthModal && (
               <button
-                onClick={onSignInWithGoogle}
+                onClick={onOpenAuthModal}
                 className="px-3.5 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs flex items-center gap-2 transition-all shrink-0 cursor-pointer shadow-md"
               >
                 <LogIn className="w-3.5 h-3.5" />
-                <span>เข้าสู่ระบบด้วย Google</span>
+                <span>เข้าสู่ระบบ</span>
               </button>
             )}
           </div>
@@ -456,13 +456,13 @@ export const ControllerInquiriesModal: React.FC<ControllerInquiriesModalProps> =
                     ? 'รายการคำถามจะซิงก์จาก Cloud Firestore เมื่อคุณลงชื่อเข้าสู่ระบบ' 
                     : 'เมื่อมีนักเรียนส่งคำถามผ่านแบบฟอร์ม รายการจะปรากฏที่นี่แบบเรียลไทม์'}
                 </p>
-                {!currentUserEmail && onSignInWithGoogle && (
+                {!currentUserEmail && onOpenAuthModal && (
                   <button
-                    onClick={onSignInWithGoogle}
+                    onClick={onOpenAuthModal}
                     className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs transition-all cursor-pointer shadow-md mx-auto"
                   >
                     <LogIn className="w-3.5 h-3.5" />
-                    <span>เข้าสู่ระบบด้วย Google</span>
+                    <span>เข้าสู่ระบบด้วยอีเมล</span>
                   </button>
                 )}
                 {searchTerm && (
@@ -627,7 +627,11 @@ export const ControllerInquiriesModal: React.FC<ControllerInquiriesModalProps> =
                       </button>
 
                       <button
-                        onClick={() => handleUpdateStatus(selectedInquiry.id, selectedInquiry.status || 'pending', adminNoteInput)}
+                        onClick={() => {
+                          const currentStat = selectedInquiry.status;
+                          const safeStat = (currentStat === 'resolved' || currentStat === 'in_review') ? currentStat : 'pending';
+                          handleUpdateStatus(selectedInquiry.id, safeStat, adminNoteInput);
+                        }}
                         disabled={isUpdating}
                         className="px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-white text-xs font-semibold cursor-pointer transition-colors"
                       >
@@ -681,13 +685,13 @@ export const ControllerInquiriesModal: React.FC<ControllerInquiriesModalProps> =
                       ? 'รายการงานที่ส่งตรวจจะโหลดโดยอัตโนมัติเมื่อลงชื่อเข้าสู่ระบบ' 
                       : 'เมื่อนักเรียนกดส่งงานในหน้า Workshop รายการจะปรากฏที่นี่ทันที'}
                   </p>
-                  {!currentUserEmail && onSignInWithGoogle && (
+                  {!currentUserEmail && onOpenAuthModal && (
                     <button
-                      onClick={onSignInWithGoogle}
+                      onClick={onOpenAuthModal}
                       className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs transition-all cursor-pointer shadow-md mx-auto"
                     >
                       <LogIn className="w-3.5 h-3.5" />
-                      <span>เข้าสู่ระบบด้วย Google</span>
+                      <span>เข้าสู่ระบบด้วยอีเมล</span>
                     </button>
                   )}
                 </div>

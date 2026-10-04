@@ -206,7 +206,7 @@ export interface AppNotification {
   id: string;
   title: string;
   message: string;
-  type: 'inquiry' | 'workshop' | 'system' | 'badge' | 'quiz';
+  type: 'inquiry' | 'workshop' | 'system' | 'badge' | 'quiz' | 'lesson';
   targetUid?: string; // specific user UID, or 'admin', or undefined for broadcast
   recipientEmail?: string;
   read: boolean;
@@ -214,4 +214,28 @@ export interface AppNotification {
   link?: string;
   createdAt: string;
 }
+
+export interface EbookSectionContent {
+  title: string;
+  body: string;
+  image?: string;
+  imageCaption?: string;
+  proTip?: string;
+  diagramData?: { label: string; value: string; desc: string }[];
+}
+
+export interface EbookChapter {
+  id: string;
+  chapterNumber: number;
+  title: string;
+  subtitle: string;
+  readTime: string;
+  coverImage: string;
+  summary: string;
+  keyTakeaways: string[];
+  sections: EbookSectionContent[];
+  shortcuts?: { key: string; action: string }[];
+  tags: string[];
+}
+
 

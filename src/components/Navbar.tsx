@@ -41,6 +41,7 @@ interface NavbarProps {
 const NAV_ITEMS = [
   { href: '#home', label: 'Home', icon: Sparkles },
   { href: '#lessons', label: 'บทเรียน', icon: BookOpen },
+  { href: '#ebook', label: 'E-Book', icon: BookOpen },
   { href: '#videos', label: 'วิดีโอ', icon: Film },
   { href: '#media', label: 'สื่อการเรียน', icon: FolderDown },
   { href: '#quiz', label: 'แบบทดสอบ', icon: HelpCircle },

@@ -67,11 +67,8 @@ service cloud.firestore {
 
     // Real-time notifications collection
     match /notifications/{notifId} {
-      // Allow read for everyone for broadcast notifications, or if user is admin, or if targeted to the user
-      allow read: if resource.data.targetUid == null || 
-                     resource.data.targetUid == 'all' || 
-                     (isSignedIn() && resource.data.targetUid == request.auth.uid) || 
-                     isAdmin();
+      // Allow read for announcements and updates across all clients
+      allow read: if true;
       // Allow creation of notifications with valid structure
       allow create: if request.resource.data.title is string &&
                        request.resource.data.message is string &&

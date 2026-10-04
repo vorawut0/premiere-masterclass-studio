@@ -3,6 +3,7 @@ import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Instructor } from './components/Instructor';
 import { LessonsSection } from './components/LessonsSection';
+import { EbookSection } from './components/EbookSection';
 import { VideosSection } from './components/VideosSection';
 import { MediaSection } from './components/MediaSection';
 import { QuizSection } from './components/QuizSection';
@@ -328,10 +329,14 @@ export default function App() {
     // Save to account-specific LocalStorage
     saveLocalStateForUid(currentUid, userState);
 
-    // If signed into Google, debounce save to Firestore for this specific account
+    // If signed into account, debounce save to Firestore for this specific account
     if (currentUid) {
-      const timer = setTimeout(() => {
-        saveUserDataToCloud(currentUid, userState);
+      const timer = setTimeout(async () => {
+        try {
+          await saveUserDataToCloud(currentUid, userState);
+        } catch (err) {
+          console.warn('Auto-save sync note:', err);
+        }
       }, 800);
       return () => clearTimeout(timer);
     }
@@ -690,7 +695,7 @@ export default function App() {
       ...guestState,
       googleAccount: undefined
     });
-    setToastMessage('ออกจากระบบ Google เรียบร้อยแล้ว (สลับสู่บัญชี Guest)');
+    setToastMessage('ออกจากระบบเรียบร้อยแล้ว (สลับสู่บัญชี Guest)');
   };
 
   const handleResetProgress = () => {
@@ -763,6 +768,9 @@ export default function App() {
         onTriggerToast={triggerToast}
         preselectedLessonId={activeModalLessonId}
       />
+
+      {/* Premiere Pro Interactive E-Book Section */}
+      <EbookSection onTriggerToast={triggerToast} />
 
       {/* Videos Vault Section */}
       <VideosSection
@@ -948,7 +956,10 @@ export default function App() {
         onClose={() => setIsControllerInboxOpen(false)}
         currentUserEmail={currentUser?.email}
         onTriggerToast={triggerToast}
-        onSignInWithGoogle={handleSignInGoogle}
+        onOpenAuthModal={() => {
+          setIsControllerInboxOpen(false);
+          handleOpenAuthModal('controller');
+        }}
       />
     </div>
   );

@@ -1,6 +1,6 @@
 {
   "name": "Premiere Masterclass",
-  "description": "Adobe Premiere Pro E-Learning & Video Editing Masterclass with interactive lessons, quizzes, minigames, and progress dashboard.",
+  "description": "Adobe Premiere Pro E-Learning & Video Editing Masterclass with interactive lessons, comprehensive digital E-Book, quizzes, minigames, and progress dashboard.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

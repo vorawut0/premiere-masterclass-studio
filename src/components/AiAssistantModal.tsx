@@ -65,8 +65,10 @@ export const AiAssistantModal: React.FC<AiAssistantModalProps> = ({ isOpen, onCl
     setInputText('');
     setIsThinking(true);
 
+    let answered = false;
+
     try {
-      // 1. First attempt: Real Google Gemini 2.5/3.8 AI via server endpoint
+      // 1. First attempt: Real Google Gemini AI via server endpoint
       const res = await fetch('/api/gemini/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -84,15 +86,17 @@ export const AiAssistantModal: React.FC<AiAssistantModalProps> = ({ isOpen, onCl
             timestamp: new Date().toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' })
           };
           setMessages(prev => [...prev, aiMsg]);
-          setIsThinking(false);
-          return;
+          answered = true;
         }
       }
-    } catch {
-      // Graceful local fallback handled below
+    } catch (err) {
+      console.warn('Gemini chat network note:', err);
+    }
+
+    if (!answered) {
       // 2. Resilient Fallback: Built-in Premiere Pro Masterclass Knowledge Base
       const queryLower = q.toLowerCase();
-      let matched = AI_KNOWLEDGE_BASE.find(item => 
+      const matched = AI_KNOWLEDGE_BASE.find(item => 
         item.keywords.some(k => queryLower.includes(k.toLowerCase())) ||
         item.topic.toLowerCase().includes(queryLower)
       );
@@ -117,8 +121,9 @@ export const AiAssistantModal: React.FC<AiAssistantModalProps> = ({ isOpen, onCl
       };
 
       setMessages(prev => [...prev, aiMsg]);
-      setIsThinking(false);
     }
+
+    setIsThinking(false);
   };
 
   const handleClearChat = () => {

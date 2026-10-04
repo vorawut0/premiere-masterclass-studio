@@ -334,7 +334,11 @@ export async function saveUserDataToCloud(uid: string, state: UserState): Promis
     await setDoc(userDocRef, dataToSave, { merge: true });
   } catch (error: any) {
     if (error?.code === 'permission-denied') {
-      handleFirestoreError(error, OperationType.WRITE, pathForWrite);
+      try {
+        handleFirestoreError(error, OperationType.WRITE, pathForWrite);
+      } catch (errLog) {
+        console.warn('Cloud sync permission notice (data persisted locally):', errLog);
+      }
     } else {
       console.warn('Firestore sync note (saved locally):', error?.message || error);
     }
@@ -452,13 +456,14 @@ export function subscribeToInquiries(
     const isAdmin = isUserAdmin(user.email);
     const q = isAdmin
       ? query(collection(db, 'inquiries'), orderBy('createdAt', 'desc'), limit(100))
-      : query(collection(db, 'inquiries'), where('senderUid', '==', user.uid), orderBy('createdAt', 'desc'), limit(100));
+      : query(collection(db, 'inquiries'), where('senderUid', '==', user.uid), limit(100));
 
     return onSnapshot(q, (snapshot) => {
       const items: ContactMessage[] = [];
       snapshot.forEach(docSnap => {
         items.push({ id: docSnap.id, ...(docSnap.data() as any) });
       });
+      items.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
       onUpdate(items);
     }, (error) => {
       console.warn('Inquiries snapshot notice:', error?.message || error);
@@ -590,13 +595,14 @@ export function subscribeToWorkshopSubmissions(
     const isAdmin = isUserAdmin(user.email);
     const q = isAdmin
       ? query(collection(db, 'workshop_submissions'), orderBy('submittedAt', 'desc'), limit(100))
-      : query(collection(db, 'workshop_submissions'), where('senderUid', '==', user.uid), orderBy('submittedAt', 'desc'), limit(100));
+      : query(collection(db, 'workshop_submissions'), where('senderUid', '==', user.uid), limit(100));
 
     return onSnapshot(q, (snapshot) => {
       const list: any[] = [];
       snapshot.forEach(d => {
         list.push({ id: d.id, ...d.data() });
       });
+      list.sort((a, b) => new Date(b.submittedAt || 0).getTime() - new Date(a.submittedAt || 0).getTime());
       onUpdate(list);
     }, (error) => {
       console.warn('Workshop submissions subscription notice:', error?.message || error);
@@ -649,7 +655,7 @@ export async function updateWorkshopSubmissionGradeInFirestore(
 export async function sendSystemNotification(notification: {
   title: string;
   message: string;
-  type?: 'inquiry' | 'workshop' | 'system' | 'badge' | 'quiz';
+  type?: 'inquiry' | 'workshop' | 'system' | 'badge' | 'quiz' | 'lesson';
   targetUid?: string;
   recipientEmail?: string;
   link?: string;

@@ -64,7 +64,7 @@ async function startServer() {
 
       if (client) {
         // Use high-availability models with robust fallback order
-        const modelsToTry = ['gemini-3.1-flash-lite', 'gemini-flash-latest', 'gemini-3.8-flash'];
+        const modelsToTry = ['gemini-2.5-flash', 'gemini-3.1-flash-lite', 'gemini-flash-latest'];
 
         for (const modelName of modelsToTry) {
           try {
