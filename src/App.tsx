@@ -22,7 +22,6 @@ import { AiAssistantModal } from './components/AiAssistantModal';
 import { ShortcutsModal } from './components/ShortcutsModal';
 import { GoogleAuthModal } from './components/GoogleAuthModal';
 import { ControllerInquiriesModal } from './components/ControllerInquiriesModal';
-import { SplashScreen } from './components/SplashScreen';
 import { UserState, Lesson, WorkshopSubmission, ContactMessage, GoogleAccountInfo, AppNotification } from './types';
 import { LESSONS_DATA } from './data/masterclassData';
 import { triggerLessonCompletionConfetti, triggerBadgeUnlockConfetti } from './utils/confetti';
@@ -174,7 +173,6 @@ export default function App() {
   const [authModalTab, setAuthModalTab] = useState<'student' | 'controller'>('student');
   const [isControllerInboxOpen, setIsControllerInboxOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState<GoogleAccountInfo | null>(null);
-  const [showSplash, setShowSplash] = useState(true);
 
   // Real-time Firestore notifications state
   const [notifications, setNotifications] = useState<AppNotification[]>([]);
@@ -727,11 +725,6 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[var(--bg)] text-[var(--text)] transition-colors duration-300 font-sans selection:bg-[#8B5CF6] selection:text-white relative w-full overflow-x-hidden">
-      {/* Cinematic Studio Splash Screen with Animated Premiere Pro Logo */}
-      {showSplash && (
-        <SplashScreen onComplete={() => setShowSplash(false)} minDuration={1400} />
-      )}
-
       {/* Global Toast */}
       <Toast message={toastMessage} onClose={() => setToastMessage(null)} />
 
