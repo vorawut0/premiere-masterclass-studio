@@ -129,6 +129,9 @@ export const EbookSection: React.FC<EbookSectionProps> = ({ onTriggerToast }) =>
                         alt="Ebook Preview"
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         referrerPolicy="no-referrer"
+                        onError={(e) => {
+                          (e.currentTarget as HTMLImageElement).src = "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1200&q=80";
+                        }}
                       />
                       <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
                         <span className="px-2 py-1 rounded-md bg-purple-600 text-white font-bold text-[10px] flex items-center gap-1 shadow-md">
@@ -266,6 +269,9 @@ export const EbookSection: React.FC<EbookSectionProps> = ({ onTriggerToast }) =>
                     alt={chapter.title} 
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).src = "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1200&q=80";
+                    }}
                   />
                   <div className="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-md bg-black/70 backdrop-blur-md border border-white/20 text-purple-300 font-mono text-[10px] font-bold">
                     บทที่ {chapter.chapterNumber}

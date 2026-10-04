@@ -19,7 +19,7 @@ export const EBOOK_CHAPTERS: EbookChapter[] = [
     title: "The Master Workspace & Performance Architecture",
     subtitle: "การจัดพื้นที่ทำงาน สถาปัตยกรรมแคช และการสร้าง Sequence ระดับมืออาชีพ",
     readTime: "8 นาที",
-    coverImage: "https://images.unsplash.com/photo-1536240478700-b869070f9279?auto=format&fit=crop&w=1200&q=80",
+    coverImage: "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1200&q=80",
     summary: "รากฐานที่สำคัญที่สุดของนักตัดต่อมืออาชีพไม่ใช่แค่การใช้เครื่องมือ แต่คือการวางโครงสร้างระบบไฟล์ แคช และ Sequence ให้เครื่องคอมพิวเตอร์ประมวลผลได้เร็วที่สุดโดยไม่เกิดอาการกระตุกหรือโปรแกรมปิดตัวกะทันหัน",
     keyTakeaways: [
       "การจัด Window Workspace สำหรับ Single และ Dual Monitor",
@@ -37,7 +37,7 @@ export const EBOOK_CHAPTERS: EbookChapter[] = [
       {
         title: "1.1 การปรับแต่ง Workspace เพื่อโฟกัสและตัดได้ไวขึ้น 3 เท่า",
         body: "พื้นที่การทำงาน (Workspace) ใน Premiere Pro สามารถปรับเปลี่ยนให้เหมาะสมกับแต่ละขั้นตอนของงาน ตั้งแต่ Assembly, Editing, Color ไปจนถึง Audio การตรึงหน้าต่าง (Docking) ให้ Source Monitor และ Program Monitor อยู่ในระนาบสายตา พร้อมขยาย Timeline ให้เห็นระดับแทร็กเสียงอย่างชัดเจน จะช่วยลดการขยับสายตาและลดความเมื่อยล้าในการทำงานติดต่อกันหลายชั่วโมง",
-        image: "https://images.unsplash.com/photo-1536240478700-b869070f9279?auto=format&fit=crop&w=1200&q=80",
+        image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1200&q=80",
         imageCaption: "ภาพบรรยากาศการจัดระเบียบหน้าต่าง Timeline และ Dual Monitors ในห้องตัดต่อระดับโปรดักชัน",
         proTip: "กดปุ่ม ` (Tilde/Backtick) บนคีย์บอร์ดเหนือแท็บ เพื่อขยาย Panel ใดก็ตามที่คุณกำลังโฟกัสอยู่ให้เต็มจอทันที เหมาะมากเวลาตรวจดูรายละเอียดใน Timeline หรือดูภาพใหญ่ใน Program Monitor",
         diagramData: [
@@ -186,7 +186,7 @@ export const EBOOK_CHAPTERS: EbookChapter[] = [
     title: "Motion Graphics, Masking & Kinetic Effects",
     subtitle: "การคุม Keyframe Velocity, Essential Graphics (MOGRT) และ Speed Ramping",
     readTime: "11 นาที",
-    coverImage: "https://images.unsplash.com/photo-1518173946687-a4c8a383392e?auto=format&fit=crop&w=1200&q=80",
+    coverImage: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1200&q=80",
     summary: "ความแตกต่างระหว่างงานตัดต่อมือสมัครเล่นกับงานระดับสตูดิโออยู่ที่ความลื่นไหลของการเคลื่อนไหว (Kinetic Motion) คีย์เฟรมแบบ Linear ทื่อๆ จะถูกแทนที่ด้วย Bezier Curve ที่มีการเร่งและผ่อนความเร็วอย่างเป็นธรรมชาติ",
     keyTakeaways: [
       "เข้าใจความแตกต่างของ Keyframe: Linear, Hold, Ease In, Ease Out, Continuous Bezier",
@@ -203,7 +203,7 @@ export const EBOOK_CHAPTERS: EbookChapter[] = [
       {
         title: "5.1 กฎเหล็กของ Keyframe Velocity Curve",
         body: "ในโลกแห่งความเป็นจริง ไม่มีวัตถุใดที่เคลื่อนที่ด้วยความเร็วคงที่ทันทีตั้งแต่จุดเริ่มต้น ทุกสิ่งต้องมีอัตราเร่งและแรงเสียดทาน ใน Effect Controls ให้คลิกขวาที่ Keyframe แล้วเลือก 'Ease Out' เมื่อเริ่มออกตัว และ 'Ease In' เมื่อกำลังจะหยุด จากนั้นเปิดเส้นกราฟความเร็ว (Velocity Graph) แล้วดึงแขน Bezier ให้ชันขึ้น กราฟิกของคุณจะวิ่งเข้ามาอย่างกระฉับกระเฉงและชะลอลงอย่างนุ่มนวลแบบภาพยนตร์ฮอลลีวูด",
-        image: "https://images.unsplash.com/photo-1518173946687-a4c8a383392e?auto=format&fit=crop&w=1200&q=80",
+        image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1200&q=80",
         imageCaption: "การปรับแต่งกราฟิกและการเคลื่อนไหวแบบคิเนติกเพื่อความน่าตื่นตาตื่นใจของภาพ",
         proTip: "หากต้องการทำภาพสโลว์โมชั่นจากฟุตเทจ 24fps หรือ 30fps ให้คลิกขวาที่คลิป เลือก Time Interpolation > 'Optical Flow' โปรแกรมจะใช้ระบบ AI คำนวณสร้างเฟรมใหม่แทรกระหว่างเฟรมเดิม ทำให้ภาพสโลว์ดูเนียนตาไม่สะดุดเป็นเฟรมซ้ำ",
         diagramData: [

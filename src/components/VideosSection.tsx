@@ -148,6 +148,9 @@ export const VideosSection: React.FC<VideosSectionProps> = ({
                       alt={video.title} 
                       referrerPolicy="no-referrer"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                      onError={(e) => {
+                        (e.currentTarget as HTMLImageElement).src = "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=640&q=80";
+                      }}
                     />
                   ) : null}
 

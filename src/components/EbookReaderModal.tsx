@@ -622,6 +622,9 @@ export const EbookReaderModal: React.FC<EbookReaderModalProps> = ({
                       alt={ch.sections[0].imageCaption || ch.sections[0].title}
                       className="w-full h-full object-cover"
                       referrerPolicy="no-referrer"
+                      onError={(e) => {
+                        (e.currentTarget as HTMLImageElement).src = "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1200&q=80";
+                      }}
                     />
                   </div>
                 )}
